@@ -91,11 +91,13 @@ rules against revealing secrets in the first place.
 
 ## How it works
 
-Three hooks:
+Four hooks:
 
 - `SessionStart` lists the rules to Claude, again after compaction.
 - `PreToolUse` translates the call, checks it against the rules and the trace, and allows,
-  refuses (with the reason), asks you, or stops.
+  refuses (with the reason), asks you, or stops. A stop leaves Claude its turn to explain;
+  every tool call is refused until you reply.
+- `UserPromptSubmit` lifts a stop when you reply.
 - `PostToolUse` records calls that ran, and scans their output.
 
 State is kept per session and per project in the plugin's data folder, under a lock, since

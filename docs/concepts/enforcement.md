@@ -37,7 +37,7 @@ Each constraint has a severity. The coding-agent harnesses give them plain names
 | `warn` | `BLOCK_AND_WARN` | Refused once; the agent may repeat the exact call to override |
 | `ask` | `PERSISTENT_BLOCK`, routed to the user | The human is asked to approve; the agent can't override |
 | `retry` | `SOFT_BLOCK` | Refused a few times, then the human is asked |
-| `stop` | `HARD_STOP` | Refused, and the agent stops |
+| `stop` | `HARD_STOP` | Refused, and the agent may not act until the human replies; it can still explain |
 | `log` | `TOLERATE` | Allowed; the agent is told it broke the rule |
 
 When one call breaks several rules, the strongest mode decides, so a `warn` override can't
