@@ -64,6 +64,14 @@ nav:
   - Python library:
       - python/index.md
       - Return values: python/return-values.md
+      - API reference:
+          - python/api/index.md
+          - Formulas: python/api/formulas.md
+          - Traces and verification: python/api/verification.md
+          - Enforcement: python/api/enforcement.md
+          - Agents and integrations: python/api/agents.md
+          - Trace-relative predicates: python/api/predicates.md
+          - Open predicates: python/api/translation.md
   - Research: research.md
 
 markdown_extensions:
@@ -90,6 +98,28 @@ markdown_extensions:
 
 plugins:
   - search
+  - autorefs
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [_sources/AgentLTL/src]     # read statically: nothing is imported
+          options:
+            extensions: [scripts/clean_docstrings.py:CleanDocstrings]
+            docstring_style: google
+            show_source: false
+            show_root_heading: false
+            show_root_toc_entry: false
+            heading_level: 2
+            members_order: source
+            filters: ["!^_"]
+            merge_init_into_class: true
+            separate_signature: true
+            show_signature_annotations: true
+            signature_crossrefs: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            show_if_no_docstring: false
 
 extra_css:
   - assets/extra.css

@@ -51,6 +51,7 @@ def main() -> int:
     if missing:
         print(f"Not found in {args.base}: {', '.join(missing)}", file=sys.stderr)
         return 1
+    _link_sources(repos)
     written: List[str] = []
     targets = {(repo, path): page for repo, path, page, _ in PAGES}
     for repo, path, page, title in PAGES:
@@ -70,6 +71,17 @@ def main() -> int:
         fh.write("\n".join(sorted(written)) + "\n")
     print(f"Pulled {len(written)} page(s) into docs/.")
     return 0
+
+
+def _link_sources(repos: Dict[str, str]) -> None:
+    """Make _sources/<name> point at each repository, as in CI: the API pages read the
+    AgentLTL sources from _sources/AgentLTL/src (see mkdocs.yml)."""
+    folder = os.path.join(HERE, "_sources")
+    os.makedirs(folder, exist_ok=True)
+    for name, path in repos.items():
+        link = os.path.join(folder, name)
+        if not os.path.exists(link) and not os.path.islink(link):
+            os.symlink(os.path.abspath(path), link)
 
 
 def _find(base: str, name: str) -> Optional[str]:
