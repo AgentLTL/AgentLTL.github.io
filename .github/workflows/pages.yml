@@ -23,19 +23,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+      - uses: actions/checkout@v5
         with: {repository: AgentLTL/AgentLTL, path: _sources/AgentLTL}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with: {repository: AgentLTL/cli-to-tools, path: _sources/cli-to-tools}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with: {repository: AgentLTL/agentltl-claude-code, path: _sources/agentltl-claude-code}
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with: {python-version: "3.12", cache: pip}
       - run: pip install -r requirements.txt ./_sources/cli-to-tools
       - run: python scripts/pull.py
       - run: mkdocs build --strict
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with: {path: site}
 
   deploy:
