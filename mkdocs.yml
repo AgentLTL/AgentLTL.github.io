@@ -1,0 +1,106 @@
+site_name: AgentLTL
+site_description: Procedural rules for tool-using LLM agents, checked on every tool call.
+site_url: https://agentltl.github.io/
+site_author: Laïla Elkoussy
+repo_url: https://github.com/AgentLTL/AgentLTL
+repo_name: AgentLTL/AgentLTL
+edit_uri: https://github.com/AgentLTL/AgentLTL.github.io/edit/main/docs/
+copyright: Copyright &copy; 2026 Laïla Elkoussy · MIT License
+
+theme:
+  name: material
+  language: en
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: deep orange
+      toggle: {icon: material/weather-night, name: Dark mode}
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: deep orange
+      toggle: {icon: material/weather-sunny, name: Light mode}
+  font: {text: Inter, code: JetBrains Mono}
+  icon:
+    repo: fontawesome/brands/github
+    logo: material/shield-check-outline
+  favicon: assets/favicon.svg
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+
+nav:
+  - Home: index.md
+  - Get started: get-started.md
+  - Concepts:
+      - concepts/index.md
+      - Enforcing rules at run time: concepts/enforcement.md
+      - Shell commands as tool calls: concepts/shell.md
+  - Rules:
+      - rules/index.md
+      - Rules that connect calls: rules/cookbook.md
+      - The rule library: rules/library.md
+      - Example rule files: rules/examples.md
+      - AGENTLTL.yaml reference: rules/reference.md
+  - Shell commands:
+      - shell/index.md
+      - Supported commands: shell/commands.md
+      - cli-to-tools: shell/cli-to-tools.md
+  - Harnesses:
+      - harnesses/index.md
+      - Claude Code:
+          - harnesses/claude-code/index.md
+          - Full reference: harnesses/claude-code/reference.md
+  - Python library:
+      - python/index.md
+      - Return values: python/return-values.md
+  - Research: research.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - def_list
+  - tables
+  - footnotes
+  - toc: {permalink: true}
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.highlight: {anchor_linenums: true}
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed: {alternate_style: true}
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+plugins:
+  - search
+
+extra_css:
+  - assets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/AgentLTL
+    - icon: simple/arxiv
+      link: https://arxiv.org/abs/2607.02599
+
+validation:
+  links:
+    anchors: warn

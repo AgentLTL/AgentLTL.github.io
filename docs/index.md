@@ -1,0 +1,104 @@
+---
+hide: [navigation, toc]
+---
+
+# AgentLTL
+
+<div class="hero" markdown>
+
+**Procedural rules for tool-using LLM agents, checked on every tool call.**
+
+An agent's instructions are advice: it can lose them after a long context, inside a
+subagent, or under pressure to finish. AgentLTL turns the rules that matter into
+temporal-logic constraints over the agent's tool calls, and checks each call against them
+**before it runs**.
+
+[Get started](get-started.md){ .md-button .md-button--primary }
+[How it works](concepts/index.md){ .md-button }
+
+</div>
+
+```
+> ship 1.6.0 to prod
+
+  Bash  helm upgrade web repo/web --version 1.6.0 -n prod
+  ✗ Rule 'promote-what-staging-ran' blocked this call. Nothing was executed.
+    Problem: for chart='repo/web', v='1.6.0': no earlier helm_upgrade call had
+             namespace='staging', chart='repo/web', version='1.6.0'.
+
+  Bash  helm upgrade web repo/web --version 1.6.0 -n staging    ✓
+  Bash  curl -fsS https://staging.example.com/health            ✓
+  Bash  helm upgrade web repo/web --version 1.6.0 -n prod       ✓
+```
+
+One rule did that:
+
+```yaml
+- id: promote-what-staging-ran
+  before:
+    first: {tool: helm_upgrade, with: {chart: $chart, version: $v, namespace: staging}}
+    then:  {tool: helm_upgrade, with: {chart: $chart, version: $v, namespace: prod}}
+  scope: project       # the staging deploy may have been yesterday, in another session
+```
+
+A command filter can only allow or forbid `helm upgrade`. This rule knows the **order** of
+calls (prod after staging), ties **values across calls** (the same chart and version), keeps
+**memory across sessions**, and reads **the real command line** (`-n prod` is the namespace
+wherever it appears).
+
+<div class="grid cards" markdown>
+
+-   :material-shield-check-outline: **Enforced, not advised**
+
+    ---
+
+    A call that breaks a rule is refused before it runs, with the reason and the way to
+    comply. Six modes, from "log it" to "ask the human" to "stop the agent".
+
+    [Enforcement](concepts/enforcement.md)
+
+-   :material-timeline-clock-outline: **Rules over the whole trace**
+
+    ---
+
+    Order, counts, and `$variables` that tie calls together: apply only the plan that was
+    reviewed, delete only the files the agent wrote.
+
+    [Rules that connect calls](rules/cookbook.md)
+
+-   :material-console: **Real shell parsing**
+
+    ---
+
+    `git commit -am x && git push -f` is checked as `git_commit` then
+    `git_push {force: true}`. 94 commands understood out of the box.
+
+    [Shell commands](concepts/shell.md)
+
+-   :material-puzzle-outline: **For your coding agent**
+
+    ---
+
+    A Claude Code plugin today, with a rule library, plain-language rule writing, and an
+    importer for what `CLAUDE.md` already says. More harnesses to come.
+
+    [Harnesses](harnesses/index.md)
+
+-   :material-language-python: **A Python library**
+
+    ---
+
+    The same formulas score finished traces, gate smolagents and LangChain agents at run
+    time, or serve as a reward signal.
+
+    [Python library](python/index.md)
+
+-   :material-school-outline: **Research**
+
+    ---
+
+    AgentLTL measures, enforces and trains procedural compliance in tool-using agents.
+
+    [The paper](research.md)
+
+</div>

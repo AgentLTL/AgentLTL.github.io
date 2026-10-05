@@ -1,0 +1,14 @@
+.venv/
+site/
+_sources/
+__pycache__/
+# written by scripts/pull.py (listed in docs/.pulled)
+docs/.pulled
+docs/rules/reference.md
+docs/rules/library.md
+docs/rules/examples.md
+docs/shell/cli-to-tools.md
+docs/shell/commands.md
+docs/python/index.md
+docs/python/return-values.md
+docs/harnesses/claude-code/reference.md
