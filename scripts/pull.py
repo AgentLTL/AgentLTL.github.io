@@ -107,7 +107,9 @@ def _source_note(repo: str, path: str) -> str:
 
 
 def _drop_badges(text: str) -> str:
-    return re.sub(r"\A(?:\s*\[!\[[^\n]*\n)+", "", text)
+    """Without the badges, and without the README's pointer to this site."""
+    text = re.sub(r"\A(?:\s*\[!\[[^\n]*\n)+", "", text)
+    return re.sub(r"^📖 \*\*Documentation:.*?(?:\n\n|\Z)", "", text, flags=re.M | re.S)
 
 
 _LINK = re.compile(r"(\]\()([^)\s]+)(\))")

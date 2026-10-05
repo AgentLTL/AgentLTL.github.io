@@ -1,11 +1,15 @@
 # Build the site and publish it to https://agentltl.github.io.
 # Reference pages come from the repositories they document (scripts/pull.py), so the site is
-# also rebuilt every night, and can be rebuilt by hand (Actions → Pages → Run workflow).
+# rebuilt when one of them changes (their docs.yml sends a `docs` event, with the
+# DOCS_DISPATCH_TOKEN organization secret), every night in case one was missed, and by hand
+# (Actions → Pages → Run workflow).
 name: Pages
 
 on:
   push:
     branches: [main]
+  repository_dispatch:
+    types: [docs]
   schedule:
     - cron: "17 3 * * *"
   workflow_dispatch:
