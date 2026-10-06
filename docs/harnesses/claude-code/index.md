@@ -91,14 +91,19 @@ rules against revealing secrets in the first place.
 
 ## How it works
 
-Four hooks:
+Six hooks:
 
 - `SessionStart` lists the rules to Claude, again after compaction.
 - `PreToolUse` translates the call, checks it against the rules and the trace, and allows,
   refuses (with the reason), asks you, or stops. A stop leaves Claude its turn to explain;
   every tool call is refused until you reply.
+- `PostToolUse` and `PostToolUseFailure` record calls that ran, and whether they failed, and
+  scan their output.
+- `Stop` sends Claude back, a bounded number of times, while a `finally` rule is unmet.
 - `UserPromptSubmit` lifts a stop when you reply.
-- `PostToolUse` records calls that ran, and scans their output.
+
+The rules and the guard are [agentltl-coding](../agentltl-coding.md); the plugin adds the
+hooks, the status line, the memory import and the built-in `memory-first` rule.
 
 State is kept per session and per project in the plugin's data folder, under a lock, since
 Claude Code may run tool calls in parallel. Everything else is in the

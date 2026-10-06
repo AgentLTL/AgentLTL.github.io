@@ -35,6 +35,8 @@ PAGES: List[Tuple[str, str, str, Optional[str]]] = [
     ("AgentLTL", "README.md", "python/index.md", "The AgentLTL Python library"),
     ("AgentLTL", "docs/reference.md", "python/return-values.md", "Return values"),
     ("cli-to-tools", "README.md", "shell/cli-to-tools.md", "cli-to-tools"),
+    ("agentltl-coding", "README.md", "harnesses/agentltl-coding.md",
+     "agentltl-coding: rules for any coding agent"),
 ]
 
 # Where a local checkout of a repository may be called something else.
@@ -64,8 +66,8 @@ def main() -> int:
             text = _drop_badges(text)
             text = f"# {title}\n\n" + _source_note(repo, path) + text.lstrip()
         written.append(_write(page, text))
-    written.append(_write("rules/library.md", _library(repos["agentltl-claude-code"])))
-    written.append(_write("rules/examples.md", _examples(repos["agentltl-claude-code"])))
+    written.append(_write("rules/library.md", _library(repos["agentltl-coding"])))
+    written.append(_write("rules/examples.md", _examples(repos["agentltl-coding"])))
     written.append(_write("shell/commands.md", _commands(repos["cli-to-tools"])))
     with open(os.path.join(DOCS, ".pulled"), "w", encoding="utf-8") as fh:
         fh.write("\n".join(sorted(written)) + "\n")
@@ -134,8 +136,11 @@ def _links(text: str, repo: str, path: str, page: str, targets: Dict[Tuple[str, 
 
 # ── generated pages ───────────────────────────────────────────────────────────
 
-def _library(plugin: str) -> str:
-    folder = os.path.join(plugin, "library")
+LIBRARY = "src/agentltl_coding/library"
+
+
+def _library(coding: str) -> str:
+    folder = os.path.join(coding, LIBRARY)
     entries = []
     for name in sorted(os.listdir(folder)):
         if name.endswith(".yaml"):
@@ -144,8 +149,8 @@ def _library(plugin: str) -> str:
     bundles = [e for e in entries if e[1].get("include")]
     singles = [e for e in entries if not e[1].get("include")]
     out = ["# The rule library", "",
-           _source_note("agentltl-claude-code", "library/").replace("This page comes from",
-                                                                    "Generated from"),
+           _source_note("agentltl-coding", LIBRARY + "/").replace("This page comes from",
+                                                                  "Generated from"),
            "Tested rules you switch on by name, instead of writing them. In a rule file:", "",
            "```yaml", "use:", "  - no-force-push", "  - {tests-before-push: {mode: warn}}",
            "```", "",
@@ -169,12 +174,12 @@ def _library(plugin: str) -> str:
     return "\n".join(out)
 
 
-def _examples(plugin: str) -> str:
+def _examples(coding: str) -> str:
     out = ["# Example rule files", "",
-           _source_note("agentltl-claude-code", "examples/").replace("This page comes from",
-                                                                     "Generated from")]
+           _source_note("agentltl-coding", "examples/").replace("This page comes from",
+                                                                "Generated from")]
     for name in ("showcase.yaml", "creative.yaml", "AGENTLTL.yaml"):
-        path = os.path.join(plugin, "examples", name)
+        path = os.path.join(coding, "examples", name)
         if not os.path.exists(path):
             continue
         with open(path, encoding="utf-8") as fh:

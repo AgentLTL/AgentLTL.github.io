@@ -61,6 +61,7 @@ nav:
       - Claude Code:
           - harnesses/claude-code/index.md
           - Full reference: harnesses/claude-code/reference.md
+      - agentltl-coding: harnesses/agentltl-coding.md
   - Python library:
       - python/index.md
       - Return values: python/return-values.md

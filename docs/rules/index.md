@@ -53,7 +53,23 @@ refused) and a `fix` (what to do instead).
       at_most: {call: gh_pr_create, times: 1}
     ```
 
-For anything else, `ltl:` takes a raw formula (`G(now("deploy") -> X(G(!now("deploy"))))`).
+`finally`
+:   Before the agent finishes its turn, the target has run (with `since`: after the last
+    `since` call). It never refuses a call: the agent is sent back to do what is missing,
+    a bounded number of times per turn.
+
+    ```yaml
+    - id: tests-before-finishing
+      finally: {call: pytest, since: [Edit, Write]}
+    ```
+
+For anything else, `ltl:` takes a raw formula (`G(now("deploy") -> X(G(!now("deploy"))))`),
+including past-time operators: `Y` (previous call), `O` (once), `H` (always so far), `S`
+(since).
+
+Each kind compiles to an AgentLTL formula. `never`, `before`, `require` and `at_most` look
+back from the call being made, so they judge that call alone: a rule broken earlier (by an
+override) never blocks unrelated later calls.
 
 ## Targets
 
@@ -65,6 +81,7 @@ A target names a tool, and optionally narrows it by its arguments:
 {tool: kubectl_delete, with: {namespace: prod}}   # equal values
 {tool: "*", where: {"*": "migrations/*"}}         # any tool, any argument
 {tool: Write, with: {file_path: $f}, exists: true}  # only paths that already exist
+{tool: pytest, succeeded: true}                    # only runs that passed (exit status 0)
 ```
 
 Tool names are the ones commands [translate to](../shell/commands.md): `git push -f` is
