@@ -79,8 +79,9 @@ wherever it appears).
 
     ---
 
-    A Claude Code plugin today, with a rule library, plain-language rule writing, and an
-    importer for what `CLAUDE.md` already says. More harnesses to come.
+    Plugins for Claude Code and GitHub Copilot CLI, sharing one rule file, a rule library,
+    plain-language rule writing, and an importer for what your agent's instructions already
+    say. More harnesses to come.
 
     [Harnesses](harnesses/index.md)
 

@@ -105,7 +105,7 @@ harnesses reject such rules. Details:
 
 ## Memory: which calls count
 
-A harness decides which trace a rule reads. In the Claude Code plugin:
+A harness decides which trace a rule reads. In the Claude Code and Copilot CLI plugins:
 
 - **session** (default): the calls of this session. It survives compaction and resume, and
   starts empty in a new session.

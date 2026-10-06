@@ -8,13 +8,15 @@ written and listed, how the human approves an `ask`.
 
 The shared part is a Python package,
 [agentltl-coding](agentltl-coding.md): the rule language, the library, the guard and its
-state. A harness gives it a `Harness` description (the agent's name, where the user's rules
-live, which tools take shell commands, built-in rules of its own) and connects the guard to
-the agent's hooks.
+state, and what the hooks do. A harness gives it a `Harness` description (the agent's name,
+where the user's rules live, its tool names mapped onto the canonical ones, which tools take
+shell commands, where its memory lives, built-in rules of its own) and connects the guard to
+the agent's hooks. One `AGENTLTL.yaml` serves every harness.
 
 | Harness | Status | Hooks into |
 |---|---|---|
 | [Claude Code](claude-code/index.md) | Available | `PreToolUse`, `PostToolUse`, `PostToolUseFailure`, `Stop`, `UserPromptSubmit` and `SessionStart` hooks; skills; status line |
+| [GitHub Copilot CLI](copilot-cli/index.md) | Available | `preToolUse`, `postToolUse`, `postToolUseFailure`, `agentStop`, `userPromptSubmitted` and `sessionStart` hooks; skills; status line (experimental) |
 | OpenAI Codex | Planned | |
 | GitHub Copilot (VS Code) | Planned | |
 

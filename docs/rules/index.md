@@ -1,8 +1,8 @@
 # Writing rules
 
 Coding-agent harnesses read rules from `AGENTLTL.yaml`: at a project's root for that project,
-and in the harness's user folder (`~/.claude/AGENTLTL.yaml` for Claude Code) for every
-project. This page is a tour; every key is in the [reference](reference.md).
+and in the harness's user folder (`~/.claude/AGENTLTL.yaml` for Claude Code,
+`~/.copilot/AGENTLTL.yaml` for Copilot CLI) for every project. This page is a tour; every key is in the [reference](reference.md).
 
 ```yaml title="AGENTLTL.yaml"
 use: [no-force-push, protect-env-files]     # tested rules from the library
@@ -127,4 +127,5 @@ $ agentltl check --add draft.yaml "deny: git push" "allow: pytest" "allow: git p
 
 `check` exits 1 if a step doesn't do what you expected, and prints a `WARNING` for any tool
 or argument name nothing produces (a rule that would never fire). In Claude Code,
-`/agentltl:rules <rule in plain words>` drafts, tests and shows a rule before saving it.
+`/agentltl:rules <rule in plain words>` drafts, tests and shows a rule before saving it
+(`/agentltl-rules` in Copilot CLI).

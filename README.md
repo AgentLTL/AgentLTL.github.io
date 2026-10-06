@@ -19,8 +19,8 @@ The site is rebuilt on every push, every night, and on demand from the Actions t
 
 ```bash
 git clone https://github.com/AgentLTL/AgentLTL.github.io
-cd AgentLTL.github.io            # with AgentLTL, cli-to-tools and agentltl-claude-code
-python -m venv .venv             # cloned next to it
+cd AgentLTL.github.io            # with AgentLTL, cli-to-tools, agentltl-coding,
+python -m venv .venv             # agentltl-claude-code and agentltl-copilot-cli cloned next to it
 .venv/bin/pip install -r requirements.txt ../cli-to-tools
 .venv/bin/python scripts/pull.py --from ..
 .venv/bin/mkdocs serve           # http://127.0.0.1:8000

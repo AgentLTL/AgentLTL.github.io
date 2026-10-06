@@ -25,6 +25,23 @@ Pick the way you use agents.
 
     [More on the Claude Code plugin](harnesses/claude-code/index.md)
 
+=== "GitHub Copilot CLI"
+
+    Install the plugin from its marketplace:
+
+    ```bash
+    copilot plugin marketplace add AgentLTL/agentltl-copilot-cli
+    copilot plugin install agentltl@agentltl
+    ```
+
+    Then, in a Copilot CLI session, run `/agentltl-setup` to choose the first rules.
+
+    The plugin does nothing until there is an `AGENTLTL.yaml`, at a project's root for that
+    project, or in `~/.copilot/` for every project. Setup writes the first one with you. A
+    project's file works for Claude Code and Copilot CLI alike.
+
+    [More on the Copilot CLI plugin](harnesses/copilot-cli/index.md)
+
 === "Your own agent (Python)"
 
     ```bash
@@ -59,8 +76,8 @@ rules:
     fix: Run pytest, then push.
 ```
 
-The agent sees `why` and `fix` when it is refused. In Claude Code you can also write
-rules in plain words (`/agentltl:rules never push to main`), and switch on tested ones from
-the [library](rules/library.md).
+The agent sees `why` and `fix` when it is refused. In Claude Code and Copilot CLI you can
+also write rules in plain words (`/agentltl:rules never push to main`, or `/agentltl-rules`
+in Copilot), and switch on tested ones from the [library](rules/library.md).
 
 Next: [what a rule can say](rules/index.md).

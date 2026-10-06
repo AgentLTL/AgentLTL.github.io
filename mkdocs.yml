@@ -61,6 +61,9 @@ nav:
       - Claude Code:
           - harnesses/claude-code/index.md
           - Full reference: harnesses/claude-code/reference.md
+      - GitHub Copilot CLI:
+          - harnesses/copilot-cli/index.md
+          - Full reference: harnesses/copilot-cli/reference.md
       - agentltl-coding: harnesses/agentltl-coding.md
   - Python library:
       - python/index.md

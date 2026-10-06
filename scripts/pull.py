@@ -35,6 +35,8 @@ PAGES: List[Tuple[str, str, str, Optional[str]]] = [
     ("AgentLTL", "README.md", "python/index.md", "The AgentLTL Python library"),
     ("AgentLTL", "docs/reference.md", "python/return-values.md", "Return values"),
     ("cli-to-tools", "README.md", "shell/cli-to-tools.md", "cli-to-tools"),
+    ("agentltl-copilot-cli", "docs/REFERENCE.md", "harnesses/copilot-cli/reference.md",
+     "GitHub Copilot CLI: full reference"),
     ("agentltl-coding", "README.md", "harnesses/agentltl-coding.md",
      "agentltl-coding: rules for any coding agent"),
 ]
@@ -61,6 +63,8 @@ def main() -> int:
             text = fh.read()
         text = _links(text, repo, path, page, targets)
         text = text.replace("${CLAUDE_PLUGIN_ROOT}/", f"{ORG}/agentltl-claude-code/blob/main/")
+        if repo == "agentltl-copilot-cli":       # its skills link each other relatively
+            text = text.replace("../agentltl-rules/", f"{ORG}/agentltl-copilot-cli/blob/main/skills/agentltl-rules/")
         if title:
             text = re.sub(r"\A\s*# [^\n]*\n", "", text, count=1)
             text = _drop_badges(text)
@@ -154,12 +158,17 @@ def _library(coding: str) -> str:
            "Tested rules you switch on by name, instead of writing them. In a rule file:", "",
            "```yaml", "use:", "  - no-force-push", "  - {tests-before-push: {mode: warn}}",
            "```", "",
-           "In Claude Code, `/agentltl:setup` lets you tick them. Each entry's rules get fixes "
-           "with plugin updates; a rule of your own with the same id replaces the packaged one.",
+           "In Claude Code, `/agentltl:setup` lets you tick them; in Copilot CLI, `/agentltl-setup`. "
+           "Each entry's rules get fixes with plugin updates; a rule of your own with the same id "
+           "replaces the packaged one. An entry marked *(Claude Code)* or *(Copilot CLI)* is for "
+           "that agent only: elsewhere `use:` of it switches nothing on.",
            "", "| Entry | What it does | Mode | Tags |", "|---|---|---|---|"]
     for name, e in singles:
         modes = sorted({r.get("mode", "block") for r in e.get("rules") or []})
-        out.append(f"| [`{name}`](#{name}) | {e.get('summary', '')} | {', '.join(modes)} | "
+        only = {"claude-code": "Claude Code", "copilot-cli": "Copilot CLI"}
+        agents = ", ".join(only.get(h, h) for h in e.get("harnesses") or [])
+        summary = e.get("summary", "") + (f" *({agents})*" if agents else "")
+        out.append(f"| [`{name}`](#{name}) | {summary} | {', '.join(modes)} | "
                    f"{', '.join(e.get('tags') or [])} |")
     if bundles:
         out += ["", "## Bundles", "", "| Bundle | Switches on |", "|---|---|"]
