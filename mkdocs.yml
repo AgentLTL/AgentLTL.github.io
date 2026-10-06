@@ -70,8 +70,6 @@ nav:
           - Traces and verification: python/api/verification.md
           - Enforcement: python/api/enforcement.md
           - Agents and integrations: python/api/agents.md
-          - Trace-relative predicates: python/api/predicates.md
-          - Open predicates: python/api/translation.md
   - Research: research.md
 
 markdown_extensions:
