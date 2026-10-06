@@ -47,24 +47,61 @@ The Python library exposes the severities directly, with escalation policies for
 `SOFT_BLOCK` (cumulative, consecutive, hybrid): see
 [constraint severities](../python/index.md#constraint-severities).
 
+## Judging a run that isn't over
+
+A call is checked on a *partial* trace: the run may still do anything afterwards. So at
+run time a formula takes one of five values, not two:
+
+| Value | Meaning | Example |
+|---|---|---|
+| violated | broken, and nothing later can repair it | `never deploy`, after a deploy |
+| not met yet | an obligation still open: a later call can meet it | `called("pytest")` before pytest runs |
+| pending | not triggered, or not decided yet | `before("test", "push")` before any push; "eventually X" |
+| holds so far | satisfied, but a later call could break it | `at most 2 deploys` after one |
+| holds | satisfied, and nothing later can change that | `called("pytest")` after pytest ran |
+
+A call is refused when the value drops below *pending*. Negation mirrors the scale, so
+`!before("a", "b")` is pending (not violated) while no b has run, and "next X" at the last
+call is pending, not false.
+
+On a finished trace (scoring a run afterwards) the ordinary two-valued semantics apply.
+
+## Refusing only what a call breaks
+
+Once a rule is broken for good, it stays broken: say a `warn` rule was overridden on
+purpose. Refusing every later call for it would lock the agent out of its tools and repair
+nothing. So AgentLTL tracks *which instance* of a rule failed (a position of `G`, a side of
+`&`, an entity of a quantifier, a count) and refuses a call only when it creates a new
+failure:
+
+```
+rule: G(now("deploy") -> X(G(!now("deploy"))))     # deploy at most once, warn mode
+deploy   allowed
+deploy   refused (warning)
+deploy   allowed: the agent insisted
+ls       allowed: the broken instance is the earlier deploy's, not this call's
+deploy   refused: a new violation
+```
+
+An obligation that isn't met yet is never final, so a call can always still be refused
+for it, and steered towards meeting it.
+
 ## Which formulas can be enforced
 
-Refusing a call needs a violation that is visible *now*. Some formulas can never be
-refuted part-way through a run:
+AgentLTL classifies every constraint before a run, from the values it can take:
 
-- **Safety** properties ("never X", "at most N", "B only after A") fail at a definite call,
-  and are what enforcement is for.
-- **Liveness** properties ("eventually X") can always still be satisfied later. Refusing a
-  call because `done` hasn't been called *yet* would stop every run.
+- **SAFE**: it only fails for good ("never X", "at most N", "B only after A",
+  `before(a, b)`): every refusal points at a real violation made by that call.
+- **UNSAFE**: it can fail while an obligation is open (a bare `called("x")`), so a blocking
+  severity refuses every call until the obligation is met.
+- **INERT**: it can't fail before the run ends ("eventually X", `in_order`), so a blocking
+  severity would never fire. Check it when the agent finishes, or bound it: "within 3
+  steps after X, Y" is SAFE.
+- **AMBIGUOUS**: a predicate that declared nothing, or an unknown node.
 
-AgentLTL classifies every constraint as `SAFE`, `UNSAFE` or `AMBIGUOUS` before a run, and
-warns (or, in the harnesses, refuses the rule) when a liveness property is given a blocking
-severity. Bounded versions are fine: "within 3 steps after X, Y" is safe. Details:
+The Python library warns when an UNSAFE or INERT constraint gets a blocking severity; the
+harnesses reject such rules. Details:
 [runtime-safety classification](../python/index.md#runtime-safety-classification).
-
-The check runs on a *partial* trace, so operators look ahead carefully: at the last call,
-"next X" is *undecided*, not false. The call being checked isn't refused just because
-nothing has followed it yet.
 
 ## Memory: which calls count
 
