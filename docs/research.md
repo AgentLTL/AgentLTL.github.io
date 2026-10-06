@@ -27,7 +27,7 @@ procedural rules over agent traces. The same specification can:
 
 | Repository | What it is |
 |---|---|
-| [AgentLTL](https://github.com/AgentLTL/AgentLTL) | The formula engine, post-hoc verification, and run-time enforcement for smolagents and LangChain |
+| [AgentLTL](https://github.com/AgentLTL/AgentLTL) | The formula engine, post-hoc verification, and run-time enforcement for smolagents or any agent loop |
 | [cli-to-tools](https://github.com/AgentLTL/cli-to-tools) | Shell command lines → ordered, structured tool calls |
 | [agentltl-claude-code](https://github.com/AgentLTL/agentltl-claude-code) | The Claude Code harness |
 | [AgentLTL.github.io](https://github.com/AgentLTL/AgentLTL.github.io) | This site |

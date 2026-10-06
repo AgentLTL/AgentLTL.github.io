@@ -30,7 +30,7 @@ Pick the way you use agents.
     ```bash
     pip install agentltl                 # the formula engine, no dependencies
     pip install "agentltl[smolagents]"   # with run-time enforcement for smolagents
-    pip install "agentltl[langchain]"    # or for LangChain
+    pip install "agentltl[native]"       # or the native OpenAI-compatible loop
     ```
 
     ```python

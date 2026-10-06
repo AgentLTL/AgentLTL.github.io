@@ -10,6 +10,6 @@ module named in its section; the most used names are re-exported from `agentltl`
 | [Formulas](formulas.md) | `agentltl` | The formula nodes (atoms, temporal operators, connectives, quantifiers) and `parse` |
 | [Traces and verification](verification.md) | `agentltl` | `Trace`, `ToolCall`, `Constraint`, `verify_trace`, `LTLEvaluator` |
 | [Enforcement](enforcement.md) | `agentltl.enforcer`, `agentltl.enforcement`, `agentltl.runtime_safety` | `Enforcer` and `Decision`, severities, soft-block modes, violations, runtime-safety classification |
-| [Agents and integrations](agents.md) | `agentltl.agents`, `agentltl.integrations` | `AgentWithConstraints` and the smolagents / LangChain integrations |
+| [Agents and integrations](agents.md) | `agentltl.agents`, `agentltl.integrations` | `AgentWithConstraints` and the smolagents integration |
 
 For the shape of the dicts the API returns, see [return values](../return-values.md).

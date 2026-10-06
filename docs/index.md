@@ -88,7 +88,7 @@ wherever it appears).
 
     ---
 
-    The same formulas score finished traces, gate smolagents and LangChain agents at run
+    The same formulas score finished traces, gate smolagents agents or any agent loop at run
     time, or serve as a reward signal.
 
     [Python library](python/index.md)
