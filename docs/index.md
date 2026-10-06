@@ -6,15 +6,21 @@ hide: [navigation, toc]
 
 <div class="hero" markdown>
 
-**Procedural rules for tool-using LLM agents, checked on every tool call.**
+**A rulebook for AI coding agents, enforced on every tool call.**
 
-An agent's instructions are advice: it can lose them after a long context, inside a
-subagent, or under pressure to finish. AgentLTL turns the rules that matter into
-temporal-logic constraints over the agent's tool calls, and checks each call against them
-**before it runs**.
+You write rules in a YAML file (*never force-push*, *run the tests before pushing*,
+*deploy to prod only what staging ran*). AgentLTL checks each command the agent is about to
+run against them, and refuses the ones that break a rule, **before they run**.
+
+An agent's instructions are only advice: it can lose them after a long context, inside a
+subagent, or under pressure to finish. A rule in AgentLTL is checked every time.
+
+Works with Claude Code and GitHub Copilot CLI, and as a Python library for your own
+agents. Needs Python 3.10+ and git.
 
 [Get started](get-started.md){ .md-button .md-button--primary }
 [How it works](concepts/index.md){ .md-button }
+[Running it for a team](harnesses/operating.md){ .md-button }
 
 </div>
 
@@ -53,7 +59,7 @@ wherever it appears).
     ---
 
     A call that breaks a rule is refused before it runs, with the reason and the way to
-    comply. Six modes, from "log it" to "ask the human" to "stop the agent".
+    comply. Six modes, from "just log it" to "ask the human" to "stop the agent".
 
     [Enforcement](concepts/enforcement.md)
 
@@ -71,7 +77,7 @@ wherever it appears).
     ---
 
     `git commit -am x && git push -f` is checked as `git_commit` then
-    `git_push {force: true}`. 94 commands understood out of the box.
+    `git_push {force: true}`. Dozens of common commands understood out of the box.
 
     [Shell commands](concepts/shell.md)
 
@@ -98,7 +104,8 @@ wherever it appears).
 
     ---
 
-    AgentLTL measures, enforces and trains procedural compliance in tool-using agents.
+    The paper behind it: how AgentLTL measures, enforces and trains procedural compliance
+    in tool-using agents.
 
     [The paper](research.md)
 

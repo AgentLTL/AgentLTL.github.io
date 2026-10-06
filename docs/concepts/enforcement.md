@@ -29,7 +29,9 @@ satisfy a later "before".
 
 ## Modes: what happens on a violation
 
-Each constraint has a severity. The coding-agent harnesses give them plain names:
+Each rule has a *mode*, which says what happens when a call breaks it. The mode is the name
+you write in `AGENTLTL.yaml`. The *severity* column is the name the Python library uses for
+the same thing; if you only write rule files, ignore it.
 
 | Mode | Severity | On violation |
 |---|---|---|

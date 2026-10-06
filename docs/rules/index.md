@@ -2,7 +2,9 @@
 
 Coding-agent harnesses read rules from `AGENTLTL.yaml`: at a project's root for that project,
 and in the harness's user folder (`~/.claude/AGENTLTL.yaml` for Claude Code,
-`~/.copilot/AGENTLTL.yaml` for Copilot CLI) for every project. This page is a tour; every key is in the [reference](reference.md).
+`~/.copilot/AGENTLTL.yaml` for Copilot CLI) for every project.
+
+This page is a tour; every key is in the [reference](reference.md).
 
 ```yaml title="AGENTLTL.yaml"
 use: [no-force-push, protect-env-files]     # tested rules from the library
@@ -15,10 +17,11 @@ rules:
     mode: warn
 ```
 
-## The four kinds
+## The five kinds
 
 Each rule has an `id`, exactly one kind, and usually a `why` (shown to the agent when it is
-refused) and a `fix` (what to do instead).
+refused) and a `fix` (what to do instead). The first four judge a call as it is made;
+`finally` judges the agent's turn when it ends.
 
 `never`
 :   The target is never called.

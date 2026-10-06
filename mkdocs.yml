@@ -45,7 +45,7 @@ nav:
   - Concepts:
       - concepts/index.md
       - Enforcing rules at run time: concepts/enforcement.md
-      - Shell commands as tool calls: concepts/shell.md
+      - How a command becomes tool calls: concepts/shell.md
   - Rules:
       - rules/index.md
       - Rules that connect calls: rules/cookbook.md
@@ -55,16 +55,17 @@ nav:
   - Shell commands:
       - shell/index.md
       - Supported commands: shell/commands.md
-      - cli-to-tools: shell/cli-to-tools.md
+      - The parser (cli-to-tools): shell/cli-to-tools.md
   - Harnesses:
       - harnesses/index.md
+      - Operating it (for admins): harnesses/operating.md
       - Claude Code:
           - harnesses/claude-code/index.md
           - Full reference: harnesses/claude-code/reference.md
       - GitHub Copilot CLI:
           - harnesses/copilot-cli/index.md
           - Full reference: harnesses/copilot-cli/reference.md
-      - agentltl-coding: harnesses/agentltl-coding.md
+      - The shared package (agentltl-coding): harnesses/agentltl-coding.md
   - Python library:
       - python/index.md
       - Return values: python/return-values.md

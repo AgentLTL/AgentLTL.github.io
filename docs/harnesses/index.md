@@ -1,5 +1,9 @@
 # Harnesses
 
+Installing it for yourself or a team? Start with [Get started](../get-started.md) and
+[operating it](operating.md). The rest of this page is for people who build or extend a
+harness.
+
 A harness connects AgentLTL to a coding agent. It intercepts every tool call the agent
 makes, translates shell commands into structured calls, checks them against the rules, and
 returns the agent's own kind of refusal. The rule format, the rule library and the shell
@@ -17,8 +21,8 @@ the agent's hooks. One `AGENTLTL.yaml` serves every harness.
 |---|---|---|
 | [Claude Code](claude-code/index.md) | Available | `PreToolUse`, `PostToolUse`, `PostToolUseFailure`, `Stop`, `UserPromptSubmit` and `SessionStart` hooks; skills; status line |
 | [GitHub Copilot CLI](copilot-cli/index.md) | Available | `preToolUse`, `postToolUse`, `postToolUseFailure`, `agentStop`, `userPromptSubmitted` and `sessionStart` hooks; skills; status line (experimental) |
-| OpenAI Codex | Planned | |
-| GitHub Copilot (VS Code) | Planned | |
+| OpenAI Codex | Planned | not started: [open an issue](https://github.com/AgentLTL/agentltl-claude-code/issues) if you need it |
+| GitHub Copilot (VS Code) | Planned | not started: [open an issue](https://github.com/AgentLTL/agentltl-claude-code/issues) if you need it |
 
 ## What every harness does
 

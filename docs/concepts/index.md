@@ -19,10 +19,12 @@ of calls 2, 3 and 5 decides it.
 
 ## Constraints are temporal formulas
 
-AgentLTL writes procedures in **first-order linear temporal logic** (FOLTL) over traces.
-Linear temporal logic talks about order ("always", "eventually", "before", "next");
-first-order adds quantifiers over the *values* in the calls ("for every file that was
-read…").
+In practice: a constraint is a rule about the *order* of calls and the *values* in them,
+checked against everything the agent has done so far. Under the hood, AgentLTL writes
+procedures in **first-order linear temporal logic** (FOLTL) over traces. Linear temporal
+logic talks about order ("always", "eventually", "before", "next"); first-order adds
+quantifiers over the *values* in the calls ("for every file that was read…"). You don't
+need the theory to write rules: the table shows what the formulas express.
 
 | Procedure | Formula |
 |---|---|
