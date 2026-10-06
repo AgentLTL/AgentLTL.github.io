@@ -91,9 +91,9 @@ the Claude Code plugin onto Copilot CLI.
 - **Copilot CLI only.** Copilot in VS Code and the cloud agent are not covered yet.
 - **Notes come late.** Copilot's `preToolUse` answer has no field for a note on a call that
   goes ahead, so a `log` rule's note reaches Copilot with the call's result.
-- **No permission mode.** Copilot doesn't tell hooks whether anyone is there to answer; set
-  `AGENTLTL_AUTO=1` for unattended runs (`copilot -p … --allow-all-tools`), so commands the
-  guard can't analyse follow `unparseable.auto`.
+- **Unattended runs.** In `copilot -p`, an `ask` is refused, even with `--allow-all-tools`.
+  Copilot doesn't tell hooks which mode it runs in: set `AGENTLTL_AUTO=1` for unattended
+  runs so commands the guard can't analyse follow `unparseable.auto` instead of being refused.
 - **The status line is experimental** in Copilot CLI (`agentltl statusline --install` turns
   on its feature flag).
 - As in Claude Code, it sees commands, not programs, and is a rulebook, not a sandbox.
