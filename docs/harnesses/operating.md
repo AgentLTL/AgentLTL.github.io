@@ -1,8 +1,8 @@
 # Operating it
 
 For whoever installs AgentLTL for others, or has to answer "what is this running on my
-machine?". It covers the Claude Code and Copilot CLI plugins; the details are in each
-plugin's full reference.
+machine?". It covers the Claude Code, Copilot CLI and Mistral Vibe plugins; the details are
+in each plugin's full reference.
 
 ## What it is
 
@@ -13,8 +13,8 @@ a sandbox: it sees the commands the agent runs, not what those programs do insid
 ## What it needs
 
 - Python 3.10+ and git on the machine.
-- On the first session start, the plugin builds a virtualenv in its data directory
-  (about 10 seconds). It survives updates and is rebuilt only when the pinned dependencies
+- On the first session start (in Mistral Vibe, at `agentltl install`), the plugin builds a
+  virtualenv in its data directory (about 10 seconds). It survives updates and is rebuilt only when the pinned dependencies
   change.
 
 ## Where things live
@@ -22,11 +22,11 @@ a sandbox: it sees the commands the agent runs, not what those programs do insid
 | What | Where |
 |---|---|
 | Project rules | `AGENTLTL.yaml` at the project's root (commit it, so the whole team gets the same rules) |
-| Your rules, for every project | `~/.claude/AGENTLTL.yaml` (Claude Code), `~/.copilot/AGENTLTL.yaml` (Copilot CLI) |
+| Your rules, for every project | `~/.claude/AGENTLTL.yaml` (Claude Code), `~/.copilot/AGENTLTL.yaml` (Copilot CLI), `~/.vibe/AGENTLTL.yaml` (Mistral Vibe) |
 | What the agent has done (the trace) | the plugin's data directory, under `sessions/` and `projects/` |
 | The environment it runs in | the same data directory (a virtualenv) |
 
-A project file works for both agents. When a user file and a project file both exist, both
+A project file works for every agent. When a user file and a project file both exist, both
 apply; a project can switch one of the user's rules off with `disable:`.
 
 ## Rolling it out to a team
@@ -49,7 +49,8 @@ apply; a project can switch one of the user's rules off with `disable:`.
 - **Claude Code** shows its state in the status line, for example
   `AgentLTL ● 4 rules · 2 block · 1 ask · 1 warn`. `/agentltl:status` lists the rules in
   force and what was recently refused. `agentltl statusline --install` turns the status
-  line on.
+  line on. Mistral Vibe has no status line: `/agentltl-status` and `agentltl trace` show
+  the same.
 - A broken rule file shows as `⚠ AGENTLTL.yaml has errors · nothing is enforced`. Run
   `agentltl validate` to see why.
 - `agentltl trace` prints what has been recorded for this session and the project.
@@ -59,7 +60,8 @@ apply; a project can switch one of the user's rules off with `disable:`.
 The plugins have no fixed version: every push to `main` is an update. With auto-update on,
 Claude Code fetches it in the background and tells the user to run `/reload-plugins`;
 without it, the update applies at the next launch, or when you run the update command by
-hand. If you need a fixed version, leave auto-update off and update on your own schedule.
+hand. Mistral Vibe has no plugin manager: `agentltl update` pulls the plugin and
+reinstalls its hooks. If you need a fixed version, leave auto-update off and update on your own schedule.
 
 ## Network use
 
@@ -85,7 +87,8 @@ evaluated on the machine, against a trace stored on the machine.
 ## Uninstalling
 
 Remove the plugin with the agent's own plugin commands (`/plugin` in Claude Code,
-`copilot plugin` in Copilot CLI). If you installed the status line, run
+`copilot plugin` in Copilot CLI; in Mistral Vibe, `agentltl uninstall`, then delete
+`~/.vibe/plugins/agentltl`). If you installed the status line, run
 `agentltl statusline --uninstall` first. Rule files and recorded traces are left where
 they are; delete `AGENTLTL.yaml` and the plugin's data directory to remove them.
 

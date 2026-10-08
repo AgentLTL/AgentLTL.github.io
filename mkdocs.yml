@@ -65,6 +65,9 @@ nav:
       - GitHub Copilot CLI:
           - harnesses/copilot-cli/index.md
           - Full reference: harnesses/copilot-cli/reference.md
+      - Mistral Vibe:
+          - harnesses/mistral-vibe/index.md
+          - Full reference: harnesses/mistral-vibe/reference.md
       - The shared package (agentltl-coding): harnesses/agentltl-coding.md
   - Python library:
       - python/index.md

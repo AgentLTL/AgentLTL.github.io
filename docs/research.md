@@ -32,6 +32,7 @@ procedural rules over agent traces. The same specification can:
 | [agentltl-coding](https://github.com/AgentLTL/agentltl-coding) | The rule language, rule library and guard that every coding-agent harness shares |
 | [agentltl-claude-code](https://github.com/AgentLTL/agentltl-claude-code) | The Claude Code harness |
 | [agentltl-copilot-cli](https://github.com/AgentLTL/agentltl-copilot-cli) | The GitHub Copilot CLI harness |
+| [agentltl-mistral-vibe](https://github.com/AgentLTL/agentltl-mistral-vibe) | The Mistral Vibe harness |
 | [AgentLTL.github.io](https://github.com/AgentLTL/AgentLTL.github.io) | This site |
 
 ## Contact
