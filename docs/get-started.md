@@ -64,7 +64,7 @@ git** on the machine; the plugin builds its own environment the first time it st
     ```
 
     `install` adds AgentLTL's hooks to `~/.vibe/hooks.toml` (your own are kept) and links
-    `agentltl` into `~/.local/bin`. Then, in a Vibe session, run `/agentltl-setup` to choose
+    `agentltl` into `~/.local/bin`. Then, in a Vibe session, run `/agentltl:setup` to choose
     the first rules. It works with any model Vibe runs, Mistral's or an OpenAI-compatible one
     of your own.
 
@@ -127,7 +127,7 @@ Reading it:
 
 The agent sees `why` and `fix` when it is refused. In Claude Code, Copilot CLI and Mistral
 Vibe you can also write rules in plain words (`/agentltl:rules never push to main`, or
-`/agentltl-rules` in Copilot and Vibe), and switch on tested ones from the
+`/agentltl-rules` in Copilot), and switch on tested ones from the
 [library](rules/library.md).
 
 Next: [what a rule can say](rules/index.md).

@@ -26,7 +26,7 @@ builds the plugin's Python environment (in `~/.vibe/plugin-data/agentltl`), adds
 three hooks to `~/.vibe/hooks.toml` (your own hooks there are kept), and links the `agentltl`
 command into `~/.local/bin`. The plugin does nothing until there is an `AGENTLTL.yaml`: at a
 project's root for that project, or in `~/.vibe/` for every project. In a Vibe session,
-`/agentltl-setup` picks the first rules.
+`/agentltl:setup` picks the first rules.
 
 **Updating:** `agentltl update`. **Removing:** `agentltl uninstall`, then delete the folder.
 
@@ -34,10 +34,10 @@ project's root for that project, or in `~/.vibe/` for every project. In a Vibe s
 
 | Command | What it does |
 |---|---|
-| `/agentltl-setup` | Pick rules from the [library](../../rules/library.md); also offers the instructions import |
-| `/agentltl-rules <rule>` | Add, change or remove a rule in plain words: Vibe drafts it, tests it, and shows it before saving |
-| `/agentltl-import` | Turn what your instructions already say into enforced rules |
-| `/agentltl-status` | The rules in force, and what was recently refused |
+| `/agentltl:setup` | Pick rules from the [library](../../rules/library.md); also offers the instructions import |
+| `/agentltl:rules <rule>` | Add, change or remove a rule in plain words: Vibe drafts it, tests it, and shows it before saving |
+| `/agentltl:import` | Turn what your instructions already say into enforced rules |
+| `/agentltl:status` | The rules in force, and what was recently refused |
 
 The `agentltl` command line (`validate`, `check`, `translate`, `library`, `use`, `trace`,
 `memory scan`…) is linked into `~/.local/bin` by `agentltl install`.
@@ -64,7 +64,7 @@ Library entries written for another agent (`no-claude-coauthor`, `subagents-on-s
 
 When you tell Vibe "remember: never push to main", it would write that into `AGENTS.md`,
 where it can be forgotten. The built-in `memory-first` rule steers it to an enforced rule
-instead. `/agentltl-import` does the same for what `AGENTS.md`, `~/.vibe/AGENTS.md`, the
+instead. `/agentltl:import` does the same for what `AGENTS.md`, `~/.vibe/AGENTS.md`, the
 `instructions` of custom agents (`agents/*.toml`) and prompts (`prompts/*.md`) already hold:
 it drafts and tests a rule for each statement about tool calls, and asks which to keep.
 
@@ -134,5 +134,5 @@ the Claude Code plugin onto Mistral Vibe.
   the guard can't analyse follow `unparseable.auto`.
 - **Project hooks.** AgentLTL's hooks live in your `~/.vibe/hooks.toml`; it doesn't use a
   project's `.vibe/hooks.toml`, which Vibe only runs in trusted folders.
-- **No status line.** Vibe has none: `/agentltl-status` and `agentltl trace` show the same.
+- **No status line.** Vibe has none: `/agentltl:status` and `agentltl trace` show the same.
 - As in Claude Code, it sees commands, not programs, and is a rulebook, not a sandbox.

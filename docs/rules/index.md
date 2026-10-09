@@ -132,4 +132,4 @@ $ agentltl check --add draft.yaml "deny: git push" "allow: pytest" "allow: git p
 `check` exits 1 if a step doesn't do what you expected, and prints a `WARNING` for any tool
 or argument name nothing produces (a rule that would never fire). In Claude Code,
 `/agentltl:rules <rule in plain words>` drafts, tests and shows a rule before saving it
-(`/agentltl-rules` in Copilot CLI and Mistral Vibe).
+(also in Mistral Vibe; `/agentltl-rules` in Copilot CLI).

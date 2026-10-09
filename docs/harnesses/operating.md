@@ -49,7 +49,7 @@ apply; a project can switch one of the user's rules off with `disable:`.
 - **Claude Code** shows its state in the status line, for example
   `AgentLTL ● 4 rules · 2 block · 1 ask · 1 warn`. `/agentltl:status` lists the rules in
   force and what was recently refused. `agentltl statusline --install` turns the status
-  line on. Mistral Vibe has no status line: `/agentltl-status` and `agentltl trace` show
+  line on. Mistral Vibe has no status line: `/agentltl:status` and `agentltl trace` show
   the same.
 - A broken rule file shows as `⚠ AGENTLTL.yaml has errors · nothing is enforced`. Run
   `agentltl validate` to see why.

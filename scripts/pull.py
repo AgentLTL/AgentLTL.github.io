@@ -65,8 +65,10 @@ def main() -> int:
             text = fh.read()
         text = _links(text, repo, path, page, targets)
         text = text.replace("${CLAUDE_PLUGIN_ROOT}/", f"{ORG}/agentltl-claude-code/blob/main/")
-        if repo in ("agentltl-copilot-cli", "agentltl-mistral-vibe"):   # skills link each other relatively
+        if repo == "agentltl-copilot-cli":       # its skills link each other relatively
             text = text.replace("../agentltl-rules/", f"{ORG}/{repo}/blob/main/skills/agentltl-rules/")
+        if repo == "agentltl-mistral-vibe":
+            text = text.replace("../rules/", f"{ORG}/{repo}/blob/main/skills/rules/")
         if title:
             text = re.sub(r"\A\s*# [^\n]*\n", "", text, count=1)
             text = _drop_badges(text)
@@ -160,7 +162,7 @@ def _library(coding: str) -> str:
            "Tested rules you switch on by name, instead of writing them. In a rule file:", "",
            "```yaml", "use:", "  - no-force-push", "  - {tests-before-push: {mode: warn}}",
            "```", "",
-           "In Claude Code, `/agentltl:setup` lets you tick them; in Copilot CLI and Mistral Vibe, "
+           "In Claude Code and Mistral Vibe, `/agentltl:setup` lets you tick them; in Copilot CLI, "
            "`/agentltl-setup`. Each entry's rules get fixes with plugin updates; a rule of your own "
            "with the same id replaces the packaged one. An entry marked *(Claude Code)*, "
            "*(Copilot CLI)* or *(Mistral Vibe)* is for that agent only: elsewhere `use:` of it "
