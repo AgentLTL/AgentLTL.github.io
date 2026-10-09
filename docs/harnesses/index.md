@@ -22,7 +22,7 @@ the agent's hooks. One `AGENTLTL.yaml` serves every harness.
 | [Claude Code](claude-code/index.md) | Available | `PreToolUse`, `PostToolUse`, `PostToolUseFailure`, `Stop`, `UserPromptSubmit` and `SessionStart` hooks; skills; status line |
 | [GitHub Copilot CLI](copilot-cli/index.md) | Available | `preToolUse`, `postToolUse`, `postToolUseFailure`, `agentStop`, `userPromptSubmitted` and `sessionStart` hooks; skills; status line (experimental) |
 | [Mistral Vibe](mistral-vibe/index.md) | Available | `pre_tool`, `post_tool` and `post_agent` hooks (no session-start or user-prompt hook, no "ask" answer: the plugin emulates them); skills |
-| OpenAI Codex | Planned | not started: [open an issue](https://github.com/AgentLTL/agentltl-claude-code/issues) if you need it |
+| [Codex](codex/index.md) | Available | `PreToolUse`, `PostToolUse`, `Stop`, `UserPromptSubmit`, `SessionStart` and `SubagentStart` hooks, once trusted (no "ask" answer: the plugin emulates it); skills |
 | GitHub Copilot (VS Code) | Planned | not started: [open an issue](https://github.com/AgentLTL/agentltl-claude-code/issues) if you need it |
 
 ## What every harness does

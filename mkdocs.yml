@@ -68,6 +68,9 @@ nav:
       - Mistral Vibe:
           - harnesses/mistral-vibe/index.md
           - Full reference: harnesses/mistral-vibe/reference.md
+      - Codex:
+          - harnesses/codex/index.md
+          - Full reference: harnesses/codex/reference.md
       - The shared package (agentltl-coding): harnesses/agentltl-coding.md
   - Python library:
       - python/index.md

@@ -39,6 +39,8 @@ PAGES: List[Tuple[str, str, str, Optional[str]]] = [
      "GitHub Copilot CLI: full reference"),
     ("agentltl-mistral-vibe", "docs/REFERENCE.md", "harnesses/mistral-vibe/reference.md",
      "Mistral Vibe: full reference"),
+    ("agentltl-codex", "docs/REFERENCE.md", "harnesses/codex/reference.md",
+     "Codex: full reference"),
     ("agentltl-coding", "README.md", "harnesses/agentltl-coding.md",
      "agentltl-coding: rules for any coding agent"),
 ]
@@ -163,15 +165,16 @@ def _library(coding: str) -> str:
            "```yaml", "use:", "  - no-force-push", "  - {tests-before-push: {mode: warn}}",
            "```", "",
            "In Claude Code and Mistral Vibe, `/agentltl:setup` lets you tick them; in Copilot CLI, "
-           "`/agentltl-setup`. Each entry's rules get fixes with plugin updates; a rule of your own "
-           "with the same id replaces the packaged one. An entry marked *(Claude Code)*, "
-           "*(Copilot CLI)* or *(Mistral Vibe)* is for that agent only: elsewhere `use:` of it "
+           "`/agentltl-setup`; in Codex, `$agentltl:setup`. Each entry's rules get fixes with "
+           "plugin updates; a rule of your own with the same id replaces the packaged one. An "
+           "entry marked *(Claude Code)*, *(Copilot CLI)*, *(Mistral Vibe)* or *(Codex)* is for "
+           "that agent only: elsewhere `use:` of it "
            "switches nothing on.",
            "", "| Entry | What it does | Mode | Tags |", "|---|---|---|---|"]
     for name, e in singles:
         modes = sorted({r.get("mode", "block") for r in e.get("rules") or []})
         only = {"claude-code": "Claude Code", "copilot-cli": "Copilot CLI",
-                "mistral-vibe": "Mistral Vibe"}
+                "mistral-vibe": "Mistral Vibe", "codex": "Codex"}
         agents = ", ".join(only.get(h, h) for h in e.get("harnesses") or [])
         summary = e.get("summary", "") + (f" *({agents})*" if agents else "")
         out.append(f"| [`{name}`](#{name}) | {summary} | {', '.join(modes)} | "

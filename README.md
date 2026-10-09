@@ -20,8 +20,8 @@ The site is rebuilt on every push, every night, and on demand from the Actions t
 ```bash
 git clone https://github.com/AgentLTL/AgentLTL.github.io
 cd AgentLTL.github.io            # with AgentLTL, cli-to-tools, agentltl-coding,
-python -m venv .venv             # agentltl-claude-code, agentltl-copilot-cli and
-                                 # agentltl-mistral-vibe cloned next to it
+python -m venv .venv             # agentltl-claude-code, agentltl-copilot-cli,
+                                 # agentltl-mistral-vibe and agentltl-codex cloned next to it
 .venv/bin/pip install -r requirements.txt ../cli-to-tools
 .venv/bin/python scripts/pull.py --from ..
 .venv/bin/mkdocs serve           # http://127.0.0.1:8000

@@ -33,6 +33,7 @@ procedural rules over agent traces. The same specification can:
 | [agentltl-claude-code](https://github.com/AgentLTL/agentltl-claude-code) | The Claude Code harness |
 | [agentltl-copilot-cli](https://github.com/AgentLTL/agentltl-copilot-cli) | The GitHub Copilot CLI harness |
 | [agentltl-mistral-vibe](https://github.com/AgentLTL/agentltl-mistral-vibe) | The Mistral Vibe harness |
+| [agentltl-codex](https://github.com/AgentLTL/agentltl-codex) | The Codex harness |
 | [AgentLTL.github.io](https://github.com/AgentLTL/AgentLTL.github.io) | This site |
 
 ## Contact

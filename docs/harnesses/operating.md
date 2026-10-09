@@ -1,7 +1,7 @@
 # Operating it
 
 For whoever installs AgentLTL for others, or has to answer "what is this running on my
-machine?". It covers the Claude Code, Copilot CLI and Mistral Vibe plugins; the details are
+machine?". It covers the Claude Code, Copilot CLI, Mistral Vibe and Codex plugins; the details are
 in each plugin's full reference.
 
 ## What it is
@@ -13,6 +13,8 @@ a sandbox: it sees the commands the agent runs, not what those programs do insid
 ## What it needs
 
 - Python 3.10+ and git on the machine.
+- In Codex, `agentltl install` to trust the plugin's hooks: Codex runs no hook until it is
+  trusted (or approved in its `/hooks`).
 - On the first session start (in Mistral Vibe, at `agentltl install`), the plugin builds a
   virtualenv in its data directory (about 10 seconds). It survives updates and is rebuilt only when the pinned dependencies
   change.
@@ -22,7 +24,7 @@ a sandbox: it sees the commands the agent runs, not what those programs do insid
 | What | Where |
 |---|---|
 | Project rules | `AGENTLTL.yaml` at the project's root (commit it, so the whole team gets the same rules) |
-| Your rules, for every project | `~/.claude/AGENTLTL.yaml` (Claude Code), `~/.copilot/AGENTLTL.yaml` (Copilot CLI), `~/.vibe/AGENTLTL.yaml` (Mistral Vibe) |
+| Your rules, for every project | `~/.claude/AGENTLTL.yaml` (Claude Code), `~/.copilot/AGENTLTL.yaml` (Copilot CLI), `~/.vibe/AGENTLTL.yaml` (Mistral Vibe), `~/.codex/AGENTLTL.yaml` (Codex) |
 | What the agent has done (the trace) | the plugin's data directory, under `sessions/` and `projects/` |
 | The environment it runs in | the same data directory (a virtualenv) |
 
@@ -49,8 +51,8 @@ apply; a project can switch one of the user's rules off with `disable:`.
 - **Claude Code** shows its state in the status line, for example
   `AgentLTL ● 4 rules · 2 block · 1 ask · 1 warn`. `/agentltl:status` lists the rules in
   force and what was recently refused. `agentltl statusline --install` turns the status
-  line on. Mistral Vibe has no status line: `/agentltl:status` and `agentltl trace` show
-  the same.
+  line on. Mistral Vibe has no status line, and Codex's takes fixed items only:
+  `/agentltl:status` (`$agentltl:status` in Codex) and `agentltl trace` show the same.
 - A broken rule file shows as `⚠ AGENTLTL.yaml has errors · nothing is enforced`. Run
   `agentltl validate` to see why.
 - `agentltl trace` prints what has been recorded for this session and the project.
@@ -61,7 +63,8 @@ The plugins have no fixed version: every push to `main` is an update. With auto-
 Claude Code fetches it in the background and tells the user to run `/reload-plugins`;
 without it, the update applies at the next launch, or when you run the update command by
 hand. Mistral Vibe has no plugin manager: `agentltl update` pulls the plugin and
-reinstalls its hooks. If you need a fixed version, leave auto-update off and update on your own schedule.
+reinstalls its hooks. In Codex, `agentltl update` upgrades the plugin, then trusts the new
+version's hooks (a hook whose definition changed doesn't run until it is trusted again). If you need a fixed version, leave auto-update off and update on your own schedule.
 
 ## Network use
 
@@ -88,7 +91,8 @@ evaluated on the machine, against a trace stored on the machine.
 
 Remove the plugin with the agent's own plugin commands (`/plugin` in Claude Code,
 `copilot plugin` in Copilot CLI; in Mistral Vibe, `agentltl uninstall`, then delete
-`~/.vibe/plugins/agentltl`). If you installed the status line, run
+`~/.vibe/plugins/agentltl`; in Codex, `agentltl uninstall`, then
+`codex plugin remove agentltl@agentltl`). If you installed the status line, run
 `agentltl statusline --uninstall` first. Rule files and recorded traces are left where
 they are; delete `AGENTLTL.yaml` and the plugin's data directory to remove them.
 
@@ -99,4 +103,6 @@ they are; delete `AGENTLTL.yaml` and the plugin's data directory to remove them.
 - **Some commands can't be analysed:** `eval`, `$CMD args`, `cmd &`. In normal mode the
   person is asked about them; in auto mode they go through and the agent is told they
   weren't checked.
+- **In Codex, a hook timeout lets the call through.** Codex allows a call when a hook
+  is killed on its timeout (120 s for `PreToolUse`); every other failure is a refusal.
 - **Secret leak alerts** recognise credential formats with a distinctive prefix only.

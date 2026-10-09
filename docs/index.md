@@ -15,7 +15,7 @@ run against them, and refuses the ones that break a rule, **before they run**.
 An agent's instructions are only advice: it can lose them after a long context, inside a
 subagent, or under pressure to finish. A rule in AgentLTL is checked every time.
 
-Works with Claude Code, GitHub Copilot CLI and Mistral Vibe, and as a Python library for
+Works with Claude Code, GitHub Copilot CLI, Mistral Vibe and Codex, and as a Python library for
 your own agents. Needs Python 3.10+ and git.
 
 [Get started](get-started.md){ .md-button .md-button--primary }
@@ -85,7 +85,7 @@ wherever it appears).
 
     ---
 
-    Plugins for Claude Code, GitHub Copilot CLI and Mistral Vibe, sharing one rule file, a rule library,
+    Plugins for Claude Code, GitHub Copilot CLI, Mistral Vibe and Codex, sharing one rule file, a rule library,
     plain-language rule writing, and an importer for what your agent's instructions already
     say. More harnesses to come.
 

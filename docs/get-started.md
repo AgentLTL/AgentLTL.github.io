@@ -47,7 +47,7 @@ git** on the machine; the plugin builds its own environment the first time it st
 
     The plugin does nothing until there is an `AGENTLTL.yaml`, at a project's root for that
     project, or in `~/.copilot/` for every project. Setup writes the first one with you. A
-    project's file works for Claude Code, Copilot CLI and Mistral Vibe alike.
+    project's file works for Claude Code, Copilot CLI, Mistral Vibe and Codex alike.
 
     **Check that it is on:** run `agentltl validate` in the project. It lists the rules in
     force and where each comes from.
@@ -75,6 +75,30 @@ git** on the machine; the plugin builds its own environment the first time it st
     force and where each comes from.
 
     [More on the Mistral Vibe plugin](harnesses/mistral-vibe/index.md)
+
+=== "Codex"
+
+    Install the plugin from its marketplace, then trust its hooks:
+
+    ```bash
+    codex plugin marketplace add AgentLTL/agentltl-codex
+    codex plugin add agentltl@agentltl
+    "$(ls -td ~/.codex/plugins/cache/agentltl/agentltl/*/ | head -1)"bin/agentltl install
+    ```
+
+    Codex runs no hook until you trust it: `install` trusts AgentLTL's hooks in
+    `~/.codex/config.toml` (the rest of the file is kept) and puts `agentltl` in
+    `~/.local/bin`. You can approve each hook in Codex's `/hooks` instead. Then, in a Codex
+    session, run `$agentltl:setup` to choose the first rules. It works with any model Codex
+    runs, OpenAI's or your own.
+
+    The plugin does nothing until there is an `AGENTLTL.yaml`, at a project's root for that
+    project, or in `~/.codex/` for every project. Setup writes the first one with you.
+
+    **Check that it is on:** run `agentltl validate` in the project. It lists the rules in
+    force and where each comes from.
+
+    [More on the Codex plugin](harnesses/codex/index.md)
 
 === "Your own agent (Python)"
 
@@ -125,9 +149,9 @@ Reading it:
 - `since: [Edit, Write]` means that run has to come *after the last edit*, so editing a file
   after the tests ran sends the agent back to run them again.
 
-The agent sees `why` and `fix` when it is refused. In Claude Code, Copilot CLI and Mistral
-Vibe you can also write rules in plain words (`/agentltl:rules never push to main`, or
-`/agentltl-rules` in Copilot), and switch on tested ones from the
+The agent sees `why` and `fix` when it is refused. In Claude Code, Copilot CLI, Mistral
+Vibe and Codex you can also write rules in plain words (`/agentltl:rules never push to main`,
+`/agentltl-rules` in Copilot, `$agentltl:rules` in Codex), and switch on tested ones from the
 [library](rules/library.md).
 
 Next: [what a rule can say](rules/index.md).
