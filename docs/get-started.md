@@ -108,6 +108,13 @@ git** on the machine; the plugin builds its own environment the first time it st
     pip install "agentltl[native]"       # or the native OpenAI-compatible loop
     ```
 
+    To use the shell parser or the coding-agent rule language on their own:
+
+    ```bash
+    pip install cli-to-tools             # shell command lines → structured tool calls
+    pip install agentltl-coding          # the AGENTLTL.yaml rules and guard (pulls in both of the above)
+    ```
+
     ```python
     from agentltl import Constraint, Before, CalledNTimes, verify_trace
 
